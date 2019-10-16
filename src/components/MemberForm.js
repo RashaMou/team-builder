@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
+import MemberList from './MemberList';
 
 const MemberForm = (props) => {
   // we need form specific state:
   const[member, setMember] = useState({ 
-    firstName: '',
-    lastName: '',
-    email: ''
+    name: '',
+    email: '',
+    role: ''
   }) 
 
   const handleChange = (e) => {
@@ -15,14 +16,11 @@ const MemberForm = (props) => {
  
   const onSubmit = (e) => { // update states
     e.preventDefault() 
-    const newMember = {
-      ...member
-    }
-    props.addNewMember(newMember) // the argument is the new state that was set via handleChange
+    props.addNewMember(member) // the argument is the new state that was set via handleChange
     setMember({
-      firstName: '',
-      lastName: '',
-      email: ''
+      name: '',
+      email: '',
+      role: ''
     })
   }
 
@@ -32,20 +30,11 @@ const MemberForm = (props) => {
         <label htmlFor='firstName' />
         <input 
           type='text' 
-          name='firstName'
-          id='firstName'
-          placeholder='First Name'
+          name='name'
+          id='name'
+          placeholder='Name'
           onChange={handleChange}
-          value={member.firstName} // from the initial state object
-        />
-        <label htmlFor='lastName' />
-        <input 
-          type='text' 
-          name='lastName'
-          id='lastName'
-          placeholder='Last Name'
-          onChange={handleChange}
-          value={member.lastName}
+          value={member.name} // from the initial state object
         />
         <label htmlFor='email' />
         <input 
@@ -56,8 +45,18 @@ const MemberForm = (props) => {
           onChange={handleChange}
           value={member.email}
         />
+        <label htmlFor='role' />
+        <input 
+          type='text' 
+          name='role'
+          id='role'
+          placeholder='Role'
+          onChange={handleChange}
+          value={member.role}
+        />
         <button type='submit'>Join Team!</button>
       </form>
+      <MemberList members={props.members}/>
     </div>
     
   )
