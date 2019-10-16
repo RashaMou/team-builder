@@ -1,24 +1,24 @@
-import React from 'react';
-import logo from './logo.svg';
+import React,{ useState } from 'react';
 import './App.css';
+import MemberForm from './components/MemberForm';
+import MemberList from './components/MemberList';
+
 
 function App() {
+  // app-wide state
+  const [members, setMembers] = useState([]) //initial state is set to an empty array, i.e. no members set yet. 
+
+  // we need to update the members array with each new member passed in from the form:
+  const addNewMember = banana => {
+    setMembers([...members, banana])
+    console.log('App.js: members', members)
+  } // we pass this function down as props to the MemberForm, and the new state it returns (i.e. members) to MemberList
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <h1>Team Builder</h1>
+      <MemberForm addNewMember={addNewMember} />
+      <MemberList members={members}/>
     </div>
   );
 }
